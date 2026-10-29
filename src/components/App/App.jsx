@@ -3,11 +3,11 @@ import styles from "./App.module.css";
 import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
 import Playlist from "../Playlist/Playlist";
-import YouTube from "../../util/YouTube";
+import Deezer from "../../util/Deezer";
 
 // top level, holds every other piece of the page
 function App() {
-  // filled in by youtube search
+  // filled in by deezer search
   const [searchResults, setSearchResults] = useState([]);
 
   // name shown at the top of the playlist panel
@@ -32,24 +32,11 @@ function App() {
     setPlaylistName(name);
   }
 
-  // saves the playlist to the user's youtube channel, then clears it
-  async function savePlaylist() {
-    if (!playlistTracks.length) return;
-    const videoIds = playlistTracks.map((track) => track.id);
-    try {
-      await YouTube.savePlaylist(playlistName, videoIds);
-      setPlaylistName("New Playlist");
-      setPlaylistTracks([]);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  // asks youtube for songs and shows them in the results panel
+  // asks deezer for songs and shows them in the results panel
   async function search(term) {
     if (!term.trim()) return;
     try {
-      const results = await YouTube.search(term);
+      const results = await Deezer.search(term);
       setSearchResults(results);
     } catch (error) {
       console.error(error);
@@ -70,7 +57,6 @@ function App() {
           playlistTracks={playlistTracks}
           onRemove={removeTrack}
           onNameChange={updatePlaylistName}
-          onSave={savePlaylist}
         />
       </div>
     </div>

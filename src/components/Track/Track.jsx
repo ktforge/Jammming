@@ -6,10 +6,8 @@ function Track({ track, onAdd, onRemove }) {
     <div className={styles.track}>
       <div>
         <h3 className={styles.name}>{track.name}</h3>
-        {/* youtube results have no album, so only show it when there is one */}
         <p className={styles.details}>
-          {track.artist}
-          {track.album && ` | ${track.album}`}
+          {track.artist} | {track.album}
         </p>
       </div>
       {/* results pass onAdd, the playlist passes onRemove, so each side gets its own button */}
