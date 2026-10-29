@@ -10,6 +10,8 @@ Search by song title or artist and get up to 10 results from Deezer.
 
 Each result shows the song name, artist, and album.
 
+Click the green play button to hear a 30 second preview. Only one plays at a time.
+
 Click + to add a song to your playlist. The same song can't be added twice.
 
 Click - to take a song back out.
@@ -55,11 +57,13 @@ At one point the whole page went blank. I had left export default Track off the 
 
 I also named the project folder "Jamming" with two m's at first, so I had to rename it and point my git remote at the right repo.
 
+## Added feature: track previews
+
+Part two of the project was to plan a new feature in a design doc. I picked previews because a search like "way maker" brings back a bunch of versions that all look the same by title, and hearing a few seconds is the fastest way to pick the right one. Deezer already sends a preview link with every result, so I built it straight from the plan.
+
 ## Future work
 
 Save playlists to a real music account, either Spotify if I get Premium or Deezer if it opens developer apps again.
-
-Play the 30 second preview Deezer sends with each song.
 
 Show album art next to each track.
 

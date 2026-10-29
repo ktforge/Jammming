@@ -45,6 +45,8 @@ const Deezer = {
       name: track.title,
       artist: track.artist.name,
       album: track.album.title,
+      // 30 second mp3 clip, empty string when deezer doesn't have one
+      preview: track.preview,
     }));
   },
 };

@@ -1,10 +1,36 @@
-/* song info on the left, button pushed to the right */
+/* play button, then song info, then the add or remove button */
 .track {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 0;
   border-bottom: 1px solid #333;
+}
+
+/* takes the leftover space so the + and - stay on the right */
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+/* round green play button */
+.preview {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+  border: none;
+  border-radius: 50%;
+  background: #1db954;
+  color: #000;
+  font-size: 0.75rem;
+}
+
+/* same size as the play button for songs without a preview */
+.noPreview {
+  flex-shrink: 0;
+  width: 32px;
+  margin-right: 12px;
 }
 
 .name {
