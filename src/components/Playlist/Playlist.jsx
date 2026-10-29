@@ -13,7 +13,7 @@ function Playlist({ playlistName, playlistTracks, onRemove, onNameChange, onSave
       />
       <Tracklist tracks={playlistTracks} onRemove={onRemove} />
       <button className={styles.save} onClick={onSave}>
-        Save To Spotify
+        Save To YouTube
       </button>
     </div>
   );

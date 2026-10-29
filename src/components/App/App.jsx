@@ -6,28 +6,25 @@ import Playlist from "../Playlist/Playlist";
 
 // top level, holds every other piece of the page
 function App() {
-  // fake results until spotify search is hooked up
+  // fake results until youtube search is hooked up
   const [searchResults] = useState([
     {
       id: "1",
       name: "Way Maker",
       artist: "Leeland",
       album: "Better Word",
-      uri: "spotify:track:mock1",
     },
     {
       id: "2",
       name: "Goodness of God",
       artist: "Bethel Music",
       album: "Victory",
-      uri: "spotify:track:mock2",
     },
     {
       id: "3",
       name: "Graves Into Gardens",
       artist: "Elevation Worship",
       album: "Graves Into Gardens",
-      uri: "spotify:track:mock3",
     },
   ]);
 
@@ -41,14 +38,12 @@ function App() {
       name: "Gratitude",
       artist: "Brandon Lake",
       album: "House of Miracles",
-      uri: "spotify:track:mock4",
     },
     {
       id: "5",
       name: "Jireh",
       artist: "Elevation Worship & Maverick City Music",
       album: "Old Church Basement",
-      uri: "spotify:track:mock5",
     },
   ]);
 
@@ -68,10 +63,10 @@ function App() {
     setPlaylistName(name);
   }
 
-  // grabs each song's uri for spotify, then clears the playlist
+  // grabs each song's youtube video id, then clears the playlist
   function savePlaylist() {
-    const trackUris = playlistTracks.map((track) => track.uri);
-    console.log(`Saving "${playlistName}" with`, trackUris);
+    const videoIds = playlistTracks.map((track) => track.id);
+    console.log(`Saving "${playlistName}" with`, videoIds);
     setPlaylistName("New Playlist");
     setPlaylistTracks([]);
   }
