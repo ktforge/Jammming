@@ -1,0 +1,30 @@
+.playlist {
+  flex: 1;
+  min-width: 280px;
+  background: #1e1e1e;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+/* looks like a heading but it's really an input */
+.name {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #555;
+  color: #fff;
+  font-size: 1.5rem;
+  padding: 4px 0;
+  margin-bottom: 12px;
+}
+
+.save {
+  display: block;
+  margin: 16px auto 0;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 999px;
+  background: #1db954;
+  color: #000;
+  font-weight: bold;
+}

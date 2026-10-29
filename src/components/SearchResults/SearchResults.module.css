@@ -1,0 +1,8 @@
+/* flex: 1 lets it share the row evenly with the playlist */
+.searchResults {
+  flex: 1;
+  min-width: 280px;
+  background: #1e1e1e;
+  border-radius: 8px;
+  padding: 16px;
+}

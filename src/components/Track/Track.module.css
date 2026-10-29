@@ -1,0 +1,26 @@
+/* song info on the left, button pushed to the right */
+.track {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #333;
+}
+
+.name {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.details {
+  margin: 4px 0 0;
+  color: #aaa;
+  font-size: 0.875rem;
+}
+
+.action {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+}
