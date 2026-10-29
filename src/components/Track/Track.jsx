@@ -1,7 +1,7 @@
 import styles from './Track.module.css';
 
 // one song row with an add button
-function Track({ track }) {
+function Track({ track, onAdd }) {
   return (
     <div className={styles.track}>
       <div>
@@ -10,7 +10,12 @@ function Track({ track }) {
           {track.artist} | {track.album}
         </p>
       </div>
-      <button className={styles.action}>+</button>
+      {/* only results get a + button, playlist rows get a - in the next step */}
+      {onAdd && (
+        <button className={styles.action} onClick={() => onAdd(track)}>
+          +
+        </button>
+      )}
     </div>
   );
 }

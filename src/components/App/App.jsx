@@ -22,6 +22,32 @@ function App() {
       album: "Graves Into Gardens",
     },
   ]);
+
+  // name shown at the top of the playlist panel
+  const [playlistName] = useState("Sunday Worship");
+
+  // songs already in the playlist, fake ones for now
+  const [playlistTracks, setPlaylistTracks] = useState([
+    {
+      id: "4",
+      name: "Gratitude",
+      artist: "Brandon Lake",
+      album: "House of Miracles",
+    },
+    {
+      id: "5",
+      name: "Jireh",
+      artist: "Elevation Worship & Maverick City Music",
+      album: "Old Church Basement",
+    },
+  ]);
+
+  // adds a song from the results, skips it if it's already in the playlist
+  function addTrack(track) {
+    if (playlistTracks.some((saved) => saved.id === track.id)) return;
+    setPlaylistTracks([...playlistTracks, track]);
+  }
+
   return (
     <div className={styles.app}>
       <h1 className={styles.title}>
@@ -30,8 +56,8 @@ function App() {
       <SearchBar />
       {/* results on the left, playlist on the right */}
       <div className={styles.lists}>
-        <SearchResults searchResults={searchResults} />
-        <Playlist />
+        <SearchResults searchResults={searchResults} onAdd={addTrack} />
+        <Playlist playlistName={playlistName} playlistTracks={playlistTracks} />
       </div>
     </div>
   );
