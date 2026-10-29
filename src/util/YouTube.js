@@ -24,6 +24,11 @@ function redirectToGoogleLogin() {
   window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
 }
 
+// youtube titles come back with html codes like &#39; and &amp;, this turns them into normal text
+function decodeHtml(text) {
+  return new DOMParser().parseFromString(text, 'text/html').documentElement.textContent;
+}
+
 const YouTube = {
   // gives back a valid token, or sends the user to sign in
   getAccessToken() {
@@ -77,6 +82,38 @@ const YouTube = {
 
     // no token anywhere yet, so start the sign in
     redirectToGoogleLogin();
+  },
+
+  // searches youtube music videos and turns them into track objects
+  async search(term) {
+    const token = this.getAccessToken();
+    // no token means getAccessToken is sending the user to sign in
+    if (!token) return [];
+
+    // category 10 is music, max 10 keeps each search cheap on the daily quota
+    const params = new URLSearchParams({
+      part: 'snippet',
+      type: 'video',
+      videoCategoryId: '10',
+      maxResults: '10',
+      q: term,
+    });
+
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/search?${params}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (!response.ok) {
+      throw new Error(`YouTube search failed: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.items.map((item) => ({
+      id: item.id.videoId,
+      name: decodeHtml(item.snippet.title),
+      // auto-made artist channels end in " - Topic", so trim that off
+      artist: decodeHtml(item.snippet.channelTitle).replace(' - Topic', ''),
+    }));
   },
 };
 

@@ -1,12 +1,28 @@
+import { useState } from 'react';
 import styles from './SearchBar.module.css';
 
-// search box and button, not hooked up yet
-function SearchBar() {
+// search box that sends the typed term up to App
+function SearchBar({ onSearch }) {
+  const [term, setTerm] = useState('');
+
+  // a form submit covers both clicking Search and pressing Enter
+  function handleSubmit(e) {
+    e.preventDefault();
+    onSearch(term);
+  }
+
   return (
-    <div className={styles.searchBar}>
-      <input className={styles.input} placeholder="Enter a song title" />
-      <button className={styles.button}>Search</button>
-    </div>
+    <form className={styles.searchBar} onSubmit={handleSubmit}>
+      <input
+        className={styles.input}
+        placeholder="Enter a song or artist"
+        value={term}
+        onChange={(e) => setTerm(e.target.value)}
+      />
+      <button type="submit" className={styles.button}>
+        Search
+      </button>
+    </form>
   );
 }
 

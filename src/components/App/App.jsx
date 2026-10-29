@@ -3,49 +3,18 @@ import styles from "./App.module.css";
 import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
 import Playlist from "../Playlist/Playlist";
+import YouTube from "../../util/YouTube";
 
 // top level, holds every other piece of the page
 function App() {
-  // fake results until youtube search is hooked up
-  const [searchResults] = useState([
-    {
-      id: "1",
-      name: "Way Maker",
-      artist: "Leeland",
-      album: "Better Word",
-    },
-    {
-      id: "2",
-      name: "Goodness of God",
-      artist: "Bethel Music",
-      album: "Victory",
-    },
-    {
-      id: "3",
-      name: "Graves Into Gardens",
-      artist: "Elevation Worship",
-      album: "Graves Into Gardens",
-    },
-  ]);
+  // filled in by youtube search
+  const [searchResults, setSearchResults] = useState([]);
 
   // name shown at the top of the playlist panel
-  const [playlistName, setPlaylistName] = useState("Sunday Worship");
+  const [playlistName, setPlaylistName] = useState("New Playlist");
 
-  // songs already in the playlist, fake ones for now
-  const [playlistTracks, setPlaylistTracks] = useState([
-    {
-      id: "4",
-      name: "Gratitude",
-      artist: "Brandon Lake",
-      album: "House of Miracles",
-    },
-    {
-      id: "5",
-      name: "Jireh",
-      artist: "Elevation Worship & Maverick City Music",
-      album: "Old Church Basement",
-    },
-  ]);
+  // songs the user has added from the results
+  const [playlistTracks, setPlaylistTracks] = useState([]);
 
   // adds a song from the results, skips it if it's already in the playlist
   function addTrack(track) {
@@ -71,12 +40,23 @@ function App() {
     setPlaylistTracks([]);
   }
 
+  // asks youtube for songs and shows them in the results panel
+  async function search(term) {
+    if (!term.trim()) return;
+    try {
+      const results = await YouTube.search(term);
+      setSearchResults(results);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div className={styles.app}>
       <h1 className={styles.title}>
         Ja<span className={styles.highlight}>mmm</span>ing
       </h1>
-      <SearchBar />
+      <SearchBar onSearch={search} />
       {/* results on the left, playlist on the right */}
       <div className={styles.lists}>
         <SearchResults searchResults={searchResults} onAdd={addTrack} />
