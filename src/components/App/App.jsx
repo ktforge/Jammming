@@ -24,7 +24,7 @@ function App() {
   ]);
 
   // name shown at the top of the playlist panel
-  const [playlistName] = useState("Sunday Worship");
+  const [playlistName, setPlaylistName] = useState("Sunday Worship");
 
   // songs already in the playlist, fake ones for now
   const [playlistTracks, setPlaylistTracks] = useState([
@@ -53,6 +53,11 @@ function App() {
     setPlaylistTracks(playlistTracks.filter((saved) => saved.id !== track.id));
   }
 
+  // runs on every keystroke in the playlist name box
+  function updatePlaylistName(name) {
+    setPlaylistName(name);
+  }
+
   return (
     <div className={styles.app}>
       <h1 className={styles.title}>
@@ -66,6 +71,7 @@ function App() {
           playlistName={playlistName}
           playlistTracks={playlistTracks}
           onRemove={removeTrack}
+          onNameChange={updatePlaylistName}
         />
       </div>
     </div>
