@@ -8,18 +8,26 @@ import Playlist from "../Playlist/Playlist";
 function App() {
   // fake results until spotify search is hooked up
   const [searchResults] = useState([
-    { id: "1", name: "Way Maker", artist: "Leeland", album: "Better Word" },
+    {
+      id: "1",
+      name: "Way Maker",
+      artist: "Leeland",
+      album: "Better Word",
+      uri: "spotify:track:mock1",
+    },
     {
       id: "2",
       name: "Goodness of God",
       artist: "Bethel Music",
       album: "Victory",
+      uri: "spotify:track:mock2",
     },
     {
       id: "3",
       name: "Graves Into Gardens",
       artist: "Elevation Worship",
       album: "Graves Into Gardens",
+      uri: "spotify:track:mock3",
     },
   ]);
 
@@ -33,12 +41,14 @@ function App() {
       name: "Gratitude",
       artist: "Brandon Lake",
       album: "House of Miracles",
+      uri: "spotify:track:mock4",
     },
     {
       id: "5",
       name: "Jireh",
       artist: "Elevation Worship & Maverick City Music",
       album: "Old Church Basement",
+      uri: "spotify:track:mock5",
     },
   ]);
 
@@ -58,6 +68,14 @@ function App() {
     setPlaylistName(name);
   }
 
+  // grabs each song's uri for spotify, then clears the playlist
+  function savePlaylist() {
+    const trackUris = playlistTracks.map((track) => track.uri);
+    console.log(`Saving "${playlistName}" with`, trackUris);
+    setPlaylistName("New Playlist");
+    setPlaylistTracks([]);
+  }
+
   return (
     <div className={styles.app}>
       <h1 className={styles.title}>
@@ -72,6 +90,7 @@ function App() {
           playlistTracks={playlistTracks}
           onRemove={removeTrack}
           onNameChange={updatePlaylistName}
+          onSave={savePlaylist}
         />
       </div>
     </div>

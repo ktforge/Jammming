@@ -2,7 +2,7 @@ import styles from './Playlist.module.css';
 import Tracklist from '../Tracklist/Tracklist';
 
 // right panel where the custom playlist gets built
-function Playlist({ playlistName, playlistTracks, onRemove, onNameChange }) {
+function Playlist({ playlistName, playlistTracks, onRemove, onNameChange, onSave }) {
   return (
     <div className={styles.playlist}>
       {/* value comes from App, so typing sends the new name back up */}
@@ -12,7 +12,9 @@ function Playlist({ playlistName, playlistTracks, onRemove, onNameChange }) {
         onChange={(e) => onNameChange(e.target.value)}
       />
       <Tracklist tracks={playlistTracks} onRemove={onRemove} />
-      <button className={styles.save}>Save To Spotify</button>
+      <button className={styles.save} onClick={onSave}>
+        Save To Spotify
+      </button>
     </div>
   );
 }
