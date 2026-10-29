@@ -1,13 +1,13 @@
 import styles from './Tracklist.module.css';
 import Track from '../Track/Track';
 
-// list of tracks, three placeholders for now
-function Tracklist() {
+// defaults to an empty list so the playlist side doesn't break before it has tracks
+function Tracklist({ tracks = [] }) {
   return (
     <div className={styles.tracklist}>
-      <Track />
-      <Track />
-      <Track />
+      {tracks.map((track) => (
+        <Track key={track.id} track={track} />
+      ))}
     </div>
   );
 }
