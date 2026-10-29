@@ -48,6 +48,11 @@ function App() {
     setPlaylistTracks([...playlistTracks, track]);
   }
 
+  // drops a song from the playlist by matching its id
+  function removeTrack(track) {
+    setPlaylistTracks(playlistTracks.filter((saved) => saved.id !== track.id));
+  }
+
   return (
     <div className={styles.app}>
       <h1 className={styles.title}>
@@ -57,7 +62,11 @@ function App() {
       {/* results on the left, playlist on the right */}
       <div className={styles.lists}>
         <SearchResults searchResults={searchResults} onAdd={addTrack} />
-        <Playlist playlistName={playlistName} playlistTracks={playlistTracks} />
+        <Playlist
+          playlistName={playlistName}
+          playlistTracks={playlistTracks}
+          onRemove={removeTrack}
+        />
       </div>
     </div>
   );

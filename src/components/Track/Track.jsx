@@ -1,7 +1,7 @@
 import styles from './Track.module.css';
 
-// one song row with an add button
-function Track({ track, onAdd }) {
+// one song row with an add or remove button
+function Track({ track, onAdd, onRemove }) {
   return (
     <div className={styles.track}>
       <div>
@@ -10,10 +10,15 @@ function Track({ track, onAdd }) {
           {track.artist} | {track.album}
         </p>
       </div>
-      {/* only results get a + button, playlist rows get a - in the next step */}
+      {/* results pass onAdd, the playlist passes onRemove, so each side gets its own button */}
       {onAdd && (
         <button className={styles.action} onClick={() => onAdd(track)}>
           +
+        </button>
+      )}
+      {onRemove && (
+        <button className={styles.action} onClick={() => onRemove(track)}>
+          -
         </button>
       )}
     </div>
