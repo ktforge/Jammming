@@ -32,12 +32,17 @@ function App() {
     setPlaylistName(name);
   }
 
-  // grabs each song's youtube video id, then clears the playlist
-  function savePlaylist() {
+  // saves the playlist to the user's youtube channel, then clears it
+  async function savePlaylist() {
+    if (!playlistTracks.length) return;
     const videoIds = playlistTracks.map((track) => track.id);
-    console.log(`Saving "${playlistName}" with`, videoIds);
-    setPlaylistName("New Playlist");
-    setPlaylistTracks([]);
+    try {
+      await YouTube.savePlaylist(playlistName, videoIds);
+      setPlaylistName("New Playlist");
+      setPlaylistTracks([]);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   // asks youtube for songs and shows them in the results panel

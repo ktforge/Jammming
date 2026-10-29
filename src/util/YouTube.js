@@ -115,6 +115,58 @@ const YouTube = {
       artist: decodeHtml(item.snippet.channelTitle).replace(' - Topic', ''),
     }));
   },
+
+  // makes a playlist on the signed in user's channel and adds each video to it
+  async savePlaylist(name, videoIds) {
+    const token = this.getAccessToken();
+    if (!token) return;
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    };
+
+    // first make the empty playlist, private so only the owner sees it
+    const playlistResponse = await fetch(
+      'https://www.googleapis.com/youtube/v3/playlists?part=snippet,status',
+      {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          snippet: { title: name, description: 'Made with Jammming' },
+          status: { privacyStatus: 'private' },
+        }),
+      }
+    );
+
+    if (!playlistResponse.ok) {
+      throw new Error(`Creating the playlist failed: ${playlistResponse.status}`);
+    }
+    const playlist = await playlistResponse.json();
+
+    // then add videos one at a time so they stay in order
+    for (const videoId of videoIds) {
+      const itemResponse = await fetch(
+        'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet',
+        {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            snippet: {
+              playlistId: playlist.id,
+              resourceId: { kind: 'youtube#video', videoId },
+            },
+          }),
+        }
+      );
+
+      if (!itemResponse.ok) {
+        throw new Error(`Adding a video failed: ${itemResponse.status}`);
+      }
+    }
+
+    return playlist.id;
+  },
 };
 
 export default YouTube;
