@@ -1,4 +1,4 @@
-import styles from './Track.module.css';
+import styles from "./Track.module.css";
 
 // one song row with an add or remove button
 function Track({ track, onAdd, onRemove }) {

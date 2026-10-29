@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import styles from './SearchBar.module.css';
+import { useState } from "react";
+import styles from "./SearchBar.module.css";
 
 // search box that sends the typed term up to App
 function SearchBar({ onSearch }) {
-  const [term, setTerm] = useState('');
+  const [term, setTerm] = useState("");
 
   // a form submit covers both clicking Search and pressing Enter
   function handleSubmit(e) {

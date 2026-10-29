@@ -4,7 +4,7 @@ function jsonp(url) {
   return new Promise((resolve, reject) => {
     // unique name so two searches in a row don't clash
     const callbackName = `deezerCallback${Date.now()}${Math.floor(Math.random() * 1000)}`;
-    const script = document.createElement('script');
+    const script = document.createElement("script");
 
     // removes the script tag and the global function once we're done
     function cleanUp() {
@@ -19,7 +19,7 @@ function jsonp(url) {
     };
 
     script.onerror = () => {
-      reject(new Error('Deezer search could not load'));
+      reject(new Error("Deezer search could not load"));
       cleanUp();
     };
 
@@ -32,7 +32,7 @@ const Deezer = {
   // searches deezer and turns each result into a track object
   async search(term) {
     const data = await jsonp(
-      `https://api.deezer.com/search?q=${encodeURIComponent(term)}&limit=10`
+      `https://api.deezer.com/search?q=${encodeURIComponent(term)}&limit=10`,
     );
 
     // deezer puts errors inside the data instead of failing the request
